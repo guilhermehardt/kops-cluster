@@ -1,0 +1,91 @@
+apiVersion: kops/v1alpha2
+kind: Cluster
+metadata:
+  name: cluster.k8slabs.tk
+spec:
+  additionalPolicies:
+    master: |
+      [
+        {
+          "Effect": "Allow",
+          "Action": [
+            "autoscaling:DescribeAutoScalingGroups",
+            "autoscaling:DescribeAutoScalingInstances",
+            "autoscaling:DescribeTags",
+            "autoscaling:DescribeLaunchConfigurations",
+            "autoscaling:SetDesiredCapacity",
+            "autoscaling:TerminateInstanceInAutoScalingGroup"
+          ],
+          "Resource": ["*"]
+        }
+      ]
+  api:
+    loadBalancer:
+      type: Public
+  authorization:
+    alwaysAllow: {}
+  cloudProvider: aws
+  # CHANGE HERE
+  configBase: s3://kops-k8s-labs/cluster.k8slabs.tk
+  # CHANGE HERE
+  dnsZone: Z019587328OP7BFTLCXXS
+  etcdClusters:
+  - etcdMembers:
+    - instanceGroup: master-us-east-2a
+      name: a
+    name: main
+  - etcdMembers:
+    - instanceGroup: master-us-east-2a
+      name: a
+    name: events
+  iam:
+    legacy: false
+  # CHANGE HERE
+  kubernetesApiAccess:
+  - 181.221.4.18/32
+  kubernetesVersion: 1.16.8
+  masterInternalName: api.internal.cluster.k8slabs.tk
+  masterPublicName: api.cluster.k8slabs.tk
+  # CHANGE HERE
+  networkCIDR: 10.110.0.0/16
+  # CHANGE HERE
+  networkID: vpc-0a1b0e87c442f1e90
+  networking: 
+    weave: {}
+  nonMasqueradeCIDR: 100.64.0.0/10
+  # CHANGE HERE
+  sshAccess:
+  - 181.221.4.18/32
+  subnets:
+  # CHANGE HERE
+  - id: subnet-0bb01e2d862729c3c
+    name: public-us-east-2a
+    type: Public
+    zone: us-east-2a
+  - id: subnet-05e68bdcc033ac32d
+    name: public-us-east-2b
+    type: Public
+    zone: us-east-2b
+  - id: subnet-0e1f5d3e5b3d0733f
+    name: public-us-east-2c
+    type: Public
+    zone: us-east-2c
+  - id: subnet-0bb01e2d862729c3c
+    name: utility-us-east-2a
+    type: Utility
+    zone: us-east-2a
+  - id: subnet-05e68bdcc033ac32d
+    name: utility-us-east-2b
+    type: Utility
+    zone: us-east-2b
+  - id: subnet-0e1f5d3e5b3d0733f
+    name: utility-us-east-2c
+    type: Utility
+    zone: us-east-2c
+  topology:
+    # bastion:
+    #   bastionPublicName: bastion.cluster.k8slabs.tk
+    dns:
+      type: Public
+    masters: private
+    nodes: private
