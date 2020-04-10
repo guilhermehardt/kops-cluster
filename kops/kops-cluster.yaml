@@ -83,8 +83,8 @@ spec:
     type: Utility
     zone: us-east-2c
   topology:
-    # bastion:
-    #   bastionPublicName: bastion.cluster.k8slabs.tk
+    bastion:
+      bastionPublicName: bastion.cluster.k8slabs.tk
     dns:
       type: Public
     masters: private

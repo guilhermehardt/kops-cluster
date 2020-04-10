@@ -32,7 +32,7 @@ Now copy the name server (NS) and configure the records on your domain registrar
 Configure the resources created by the Terraform into kops cluster definition (kops-cluster.yaml).   
 The next step is to generate the cluster definition:
 ```bash
-# export the AWS credentials of the kops user created early
+# export the AWS credentials
 $ export AWS_ACCESS_KEY_ID={}
 $ export AWS_SECRET_ACCESS_KEY={}
 # export the s3 bucket that kops will store the cluster configurations
